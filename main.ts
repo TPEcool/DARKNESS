@@ -47,7 +47,6 @@ game.onUpdate(function () {
         ded()
     } else {
         if (mySprite.tileKindAt(TileDirection.Center, assets.tile`door`)) {
-            tiles.setCurrentTilemap(tilemap`level1`)
             game.over(true, effects.starField)
         } else {
         	
