@@ -14,7 +14,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 function ded () {
-    mySprite.destroy(effects.fire, 2000)
+    mySprite.destroy(effects.fire, 1000)
 }
 sprites.onDestroyed(SpriteKind.Player, function (sprite) {
     game.over(false, effects.dissolve)
@@ -47,9 +47,16 @@ game.onUpdate(function () {
         ded()
     } else {
         if (mySprite.tileKindAt(TileDirection.Center, assets.tile`door`)) {
+            tiles.setCurrentTilemap(tilemap`level1`)
             game.over(true, effects.starField)
         } else {
         	
         }
     }
+})
+forever(function () {
+    music.playMelody("E B C5 A B G A F ", 120)
+    music.playMelody("C5 A B G A F G E ", 120)
+    music.playMelody("A F E F D G E F ", 120)
+    music.playMelody("E D G F B A C5 B ", 120)
 })
