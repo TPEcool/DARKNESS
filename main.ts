@@ -1,3 +1,22 @@
+controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+    console.log(!(mySprite.isHittingTile(CollisionDirection.Bottom)))
+    if (!(mySprite.isHittingTile(CollisionDirection.Bottom))) {
+        music.playSoundEffect(music.createSoundEffect(
+        WaveShape.Noise,
+        randint(15, 30) * 50,
+        0,
+        1024,
+        0,
+        500,
+        SoundExpressionEffect.Warble,
+        InterpolationCurve.Linear
+        ), SoundExpressionPlayMode.InBackground)
+        for (let index = 0; index < 16; index++) {
+            mySprite.x += 4
+            pause(10)
+        }
+    }
+})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (mySprite.isHittingTile(CollisionDirection.Bottom)) {
         mySprite.vy = -50
