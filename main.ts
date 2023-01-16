@@ -41,6 +41,11 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.dashCrystal, function (sprite, o
     sprite.sayText("I can now dash again without landing!", 500, true)
     canDash = true
 })
+controller.combos.attachCombo("AABBBABAABAB", function () {
+    for (let index = 0; index <= tiles.getTilesByType(assets.tile`deadly tile`).length; index++) {
+        tiles.setTileAt(tiles.getTileLocation(tiles.getTilesByType(assets.tile`deadly tile`)[index].column, tiles.getTilesByType(assets.tile`deadly tile`)[index].row), assets.tile`fine cell`)
+    }
+})
 function ded () {
     player_ball.destroy(effects.fire, 1000)
 }
