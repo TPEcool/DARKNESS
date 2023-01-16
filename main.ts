@@ -55,17 +55,10 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.dashCrystal, function (sprite, o
     sprite.sayText("I can now dash again without landing!", 500, true)
     canDash = true
 })
-controller.combos.attachCombo("BABA", function () {
-    while (index2 <= tiles.getTilesByType(assets.tile`deadly tile`).length + 1) {
-        index2 += 1
-        tiles.setTileAt(tiles.getTileLocation(tiles.getTilesByType(assets.tile`deadly tile`)[index2].column, tiles.getTilesByType(assets.tile`deadly tile`)[index2].row), assets.tile`fine cell`)
-    }
-})
 function ded () {
     player_ball.destroy(effects.fire, 1000)
 }
 let switcher = 0
-let index2 = 0
 let dashy = 0
 let canDash = false
 let player_ball: Sprite = null
@@ -108,12 +101,12 @@ game.onUpdate(function () {
 forever(function () {
     switcher = randint(0, 3)
     if (switcher == 0) {
-        music.playMelody("E B C5 A B G A F ", 120)
+        music.playMelody("C D C F C G E D ", 120)
     } else if (switcher == 1) {
-        music.playMelody("C5 A B G A F G E ", 120)
+        music.playMelody("G E G F B F G C5 ", 120)
     } else if (switcher == 2) {
-        music.playMelody("A F E F D G E F ", 120)
+        music.playMelody("E A G F B A G F ", 120)
     } else {
-        music.playMelody("E D G F B A C5 B ", 120)
+        music.playMelody("A F C5 C A D B E ", 120)
     }
 })
