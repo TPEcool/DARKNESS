@@ -100,6 +100,7 @@ game.onUpdate(function () {
 })
 forever(function () {
     switcher = randint(0, 3)
+    music.setTempo(randint(1, 52) * 10)
     if (switcher == 0) {
         music.playMelody("C D C F C G E D ", 120)
     } else if (switcher == 1) {
