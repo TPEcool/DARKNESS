@@ -28,7 +28,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         0,
         500,
         SoundExpressionEffect.None,
-        InterpolationCurve.Linear
+        InterpolationCurve.Logarithmic
         ), SoundExpressionPlayMode.UntilDone)
     }
 })
