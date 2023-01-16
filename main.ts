@@ -15,7 +15,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         InterpolationCurve.Linear
         ), SoundExpressionPlayMode.InBackground)
         scene.cameraShake(2, 100)
-        for (let index = 0; index < 128; index++) {
+        for (let index = 0; index < 32; index++) {
             player_ball.x += 4
             pause(1)
         }
