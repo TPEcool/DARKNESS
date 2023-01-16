@@ -1,3 +1,6 @@
+namespace SpriteKind {
+    export const dashCrystal = SpriteKind.create()
+}
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!(mySprite.isHittingTile(CollisionDirection.Bottom)) && canDash) {
         canDash = false
@@ -11,29 +14,31 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         SoundExpressionEffect.Vibrato,
         InterpolationCurve.Linear
         ), SoundExpressionPlayMode.InBackground)
+        scene.cameraShake(2, 100)
         for (let index = 0; index < 16; index++) {
             mySprite.x += 4
             pause(10)
         }
-        if (false || false) {
-            canDash = true
-        }
+        wait_for_gnd_contact()
     }
 })
+function wait_for_gnd_contact () {
+    while (!(mySprite.isHittingTile(CollisionDirection.Bottom) || canDash)) {
+        canDash = false
+        pause(100)
+        continue;
+    }
+    canDash = true
+}
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (mySprite.isHittingTile(CollisionDirection.Bottom)) {
         mySprite.vy = -50
-        music.playSoundEffect(music.createSoundEffect(
-        WaveShape.Noise,
-        randint(15, 30) * 50,
-        0,
-        1024,
-        0,
-        500,
-        SoundExpressionEffect.None,
-        InterpolationCurve.Logarithmic
-        ), SoundExpressionPlayMode.UntilDone)
+        music.playSoundEffect(music.createSoundEffect(WaveShape.Sine, 5000, 0, 255, 0, 500, SoundExpressionEffect.None, InterpolationCurve.Linear), SoundExpressionPlayMode.UntilDone)
     }
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.dashCrystal, function (sprite, otherSprite) {
+    otherSprite.destroy(effects.ashes, 500)
+    canDash = true
 })
 function ded () {
     mySprite.destroy(effects.fire, 1000)
@@ -69,12 +74,10 @@ game.onUpdate(function () {
         ded()
     } else if (mySprite.tileKindAt(TileDirection.Bottom, assets.tile`deadly tile`)) {
         ded()
+    } else if (mySprite.tileKindAt(TileDirection.Center, assets.tile`door`)) {
+        game.over(true, effects.starField)
     } else {
-        if (mySprite.tileKindAt(TileDirection.Center, assets.tile`door`)) {
-            game.over(true, effects.starField)
-        } else {
-        	
-        }
+    	
     }
 })
 forever(function () {
