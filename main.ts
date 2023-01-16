@@ -2,7 +2,7 @@ namespace SpriteKind {
     export const dashCrystal = SpriteKind.create()
 }
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (!(mySprite.isHittingTile(CollisionDirection.Bottom)) && canDash) {
+    if (!(player_ball.isHittingTile(CollisionDirection.Bottom)) && canDash) {
         canDash = false
         music.playSoundEffect(music.createSoundEffect(
         WaveShape.Noise,
@@ -15,15 +15,15 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         InterpolationCurve.Linear
         ), SoundExpressionPlayMode.InBackground)
         scene.cameraShake(2, 100)
-        for (let index = 0; index < 16; index++) {
-            mySprite.x += 4
-            pause(10)
+        for (let index = 0; index < 128; index++) {
+            player_ball.x += 4
+            pause(1)
         }
         wait_for_gnd_contact()
     }
 })
 function wait_for_gnd_contact () {
-    while (!(mySprite.isHittingTile(CollisionDirection.Bottom) || canDash)) {
+    while (!(player_ball.isHittingTile(CollisionDirection.Bottom) || canDash)) {
         canDash = false
         pause(100)
         continue;
@@ -31,8 +31,8 @@ function wait_for_gnd_contact () {
     canDash = true
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (mySprite.isHittingTile(CollisionDirection.Bottom)) {
-        mySprite.vy = -50
+    if (player_ball.isHittingTile(CollisionDirection.Bottom)) {
+        player_ball.vy = -50
         music.playSoundEffect(music.createSoundEffect(WaveShape.Sine, 5000, 0, 255, 0, 500, SoundExpressionEffect.None, InterpolationCurve.Linear), SoundExpressionPlayMode.UntilDone)
     }
 })
@@ -42,40 +42,40 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.dashCrystal, function (sprite, o
     canDash = true
 })
 function ded () {
-    mySprite.destroy(effects.fire, 1000)
+    player_ball.destroy(effects.fire, 1000)
 }
 sprites.onDestroyed(SpriteKind.Player, function (sprite) {
     game.over(false, effects.melt)
 })
 let canDash = false
-let mySprite: Sprite = null
+let player_ball: Sprite = null
 scene.setBackgroundColor(15)
 tiles.setCurrentTilemap(tilemap`level0`)
-mySprite = sprites.create(assets.image`character`, SpriteKind.Player)
-tiles.placeOnTile(mySprite, tiles.getTileLocation(0, 13))
-scene.cameraFollowSprite(mySprite)
-mySprite.fx = 15
-mySprite.fy = 15
-mySprite.ax = 20
-mySprite.ay = 75
+player_ball = sprites.create(assets.image`character`, SpriteKind.Player)
+tiles.placeOnTile(player_ball, tiles.getTileLocation(0, 13))
+scene.cameraFollowSprite(player_ball)
+player_ball.fx = 15
+player_ball.fy = 15
+player_ball.ax = 20
+player_ball.ay = 75
 canDash = true
 game.onUpdate(function () {
     if (controller.right.isPressed()) {
-        mySprite.vx = 100
+        player_ball.vx = 100
     } else if (controller.left.isPressed()) {
-        mySprite.vx = -100
+        player_ball.vx = -100
     } else {
-        mySprite.vx = 0
+        player_ball.vx = 0
     }
-    if (mySprite.tileKindAt(TileDirection.Left, assets.tile`deadly tile`)) {
+    if (player_ball.tileKindAt(TileDirection.Left, assets.tile`deadly tile`)) {
         ded()
-    } else if (mySprite.tileKindAt(TileDirection.Top, assets.tile`deadly tile`)) {
+    } else if (player_ball.tileKindAt(TileDirection.Top, assets.tile`deadly tile`)) {
         ded()
-    } else if (mySprite.tileKindAt(TileDirection.Right, assets.tile`deadly tile`)) {
+    } else if (player_ball.tileKindAt(TileDirection.Right, assets.tile`deadly tile`)) {
         ded()
-    } else if (mySprite.tileKindAt(TileDirection.Bottom, assets.tile`deadly tile`)) {
+    } else if (player_ball.tileKindAt(TileDirection.Bottom, assets.tile`deadly tile`)) {
         ded()
-    } else if (mySprite.tileKindAt(TileDirection.Center, assets.tile`door`)) {
+    } else if (player_ball.tileKindAt(TileDirection.Center, assets.tile`door`)) {
         game.over(true, effects.starField)
     } else {
     	
