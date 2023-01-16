@@ -15,7 +15,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
             mySprite.x += 4
             pause(10)
         }
-        if (tiles.tileAtLocationEquals(tiles.getTileLocation(mySprite.x, mySprite.y), assets.tile`transparency16`) || false) {
+        if (false || false) {
             canDash = true
         }
     }
