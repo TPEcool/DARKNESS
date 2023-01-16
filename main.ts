@@ -62,6 +62,7 @@ controller.combos.attachCombo("BABA", function () {
 function ded () {
     player_ball.destroy(effects.fire, 1000)
 }
+let switcher = 0
 let index2 = 0
 let canDash = false
 let player_ball: Sprite = null
@@ -80,8 +81,10 @@ canDash = true
 game.onUpdate(function () {
     if (controller.right.isPressed()) {
         player_ball.vx = 100
+        music.footstep.play()
     } else if (controller.left.isPressed()) {
         player_ball.vx = -100
+        music.footstep.play()
     } else {
         player_ball.vx = 0
     }
@@ -100,8 +103,14 @@ game.onUpdate(function () {
     }
 })
 forever(function () {
-    music.playMelody("E B C5 A B G A F ", 120)
-    music.playMelody("C5 A B G A F G E ", 120)
-    music.playMelody("A F E F D G E F ", 120)
-    music.playMelody("E D G F B A C5 B ", 120)
+    switcher = randint(0, 3)
+    if (switcher == 0) {
+        music.playMelody("E B C5 A B G A F ", 120)
+    } else if (switcher == 1) {
+        music.playMelody("C5 A B G A F G E ", 120)
+    } else if (switcher == 2) {
+        music.playMelody("A F E F D G E F ", 120)
+    } else {
+        music.playMelody("E D G F B A C5 B ", 120)
+    }
 })
