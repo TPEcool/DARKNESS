@@ -3,6 +3,7 @@ namespace SpriteKind {
 }
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!(player_ball.isHittingTile(CollisionDirection.Bottom)) && canDash) {
+        dashy = player_ball.y
         canDash = false
         music.playSoundEffect(music.createSoundEffect(
         WaveShape.Noise,
@@ -16,6 +17,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         ), SoundExpressionPlayMode.InBackground)
         scene.cameraShake(2, 100)
         for (let index = 0; index < 32; index++) {
+            player_ball.y = dashy
             player_ball.x += 4
             pause(1)
         }
@@ -64,6 +66,7 @@ function ded () {
 }
 let switcher = 0
 let index2 = 0
+let dashy = 0
 let canDash = false
 let player_ball: Sprite = null
 controller.combos.setTimeout(1000)
