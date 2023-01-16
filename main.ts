@@ -52,7 +52,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.dashCrystal, function (sprite, otherSprite) {
     otherSprite.destroy(effects.ashes, 500)
-    sprite.sayText("I can now dash again without landing!", 500, true)
+    sprite.sayText("I can now dash again without landing!", 2000, true)
     canDash = true
 })
 function ded () {
@@ -74,6 +74,8 @@ player_ball.fy = 15
 player_ball.ax = 20
 player_ball.ay = 75
 canDash = true
+let dashCryst = sprites.create(assets.image`dashCrystStatic`, SpriteKind.dashCrystal)
+tiles.placeOnTile(dashCryst, tiles.getTileLocation(25, 13))
 game.onUpdate(function () {
     if (controller.right.isPressed()) {
         player_ball.vx = 100
