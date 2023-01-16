@@ -1,6 +1,6 @@
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    console.log(!(mySprite.isHittingTile(CollisionDirection.Bottom)))
-    if (!(mySprite.isHittingTile(CollisionDirection.Bottom))) {
+    if (!(mySprite.isHittingTile(CollisionDirection.Bottom)) && canDash) {
+        canDash = false
         music.playSoundEffect(music.createSoundEffect(
         WaveShape.Noise,
         randint(15, 30) * 50,
@@ -8,12 +8,15 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         1024,
         0,
         500,
-        SoundExpressionEffect.Warble,
+        SoundExpressionEffect.Vibrato,
         InterpolationCurve.Linear
         ), SoundExpressionPlayMode.InBackground)
         for (let index = 0; index < 16; index++) {
             mySprite.x += 4
             pause(10)
+        }
+        if (tiles.tileAtLocationEquals(tiles.getTileLocation(mySprite.x, mySprite.y), assets.tile`transparency16`) || false) {
+            canDash = true
         }
     }
 })
@@ -36,8 +39,9 @@ function ded () {
     mySprite.destroy(effects.fire, 1000)
 }
 sprites.onDestroyed(SpriteKind.Player, function (sprite) {
-    game.over(false, effects.dissolve)
+    game.over(false, effects.melt)
 })
+let canDash = false
 let mySprite: Sprite = null
 scene.setBackgroundColor(15)
 tiles.setCurrentTilemap(tilemap`level0`)
@@ -48,6 +52,7 @@ mySprite.fx = 15
 mySprite.fy = 15
 mySprite.ax = 20
 mySprite.ay = 75
+canDash = true
 game.onUpdate(function () {
     if (controller.right.isPressed()) {
         mySprite.vx = 100
