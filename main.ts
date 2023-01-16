@@ -38,6 +38,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.dashCrystal, function (sprite, otherSprite) {
     otherSprite.destroy(effects.ashes, 500)
+    sprite.sayText("I can now dash again without landing!", 500, true)
     canDash = true
 })
 function ded () {
