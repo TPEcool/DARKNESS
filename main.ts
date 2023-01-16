@@ -54,6 +54,8 @@ sprites.onDestroyed(SpriteKind.Player, function (sprite) {
 })
 let canDash = false
 let player_ball: Sprite = null
+controller.combos.setTimeout(50)
+controller.combos.setTriggerType(TriggerType.Continuous)
 scene.setBackgroundColor(15)
 tiles.setCurrentTilemap(tilemap`level0`)
 player_ball = sprites.create(assets.image`character`, SpriteKind.Player)
