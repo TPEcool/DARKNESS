@@ -22,6 +22,9 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         wait_for_gnd_contact()
     }
 })
+sprites.onDestroyed(SpriteKind.Player, function (sprite2) {
+    game.over(false, effects.melt)
+})
 function wait_for_gnd_contact () {
     while (!(player_ball.isHittingTile(CollisionDirection.Bottom) || canDash)) {
         canDash = false
@@ -33,7 +36,16 @@ function wait_for_gnd_contact () {
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (player_ball.isHittingTile(CollisionDirection.Bottom)) {
         player_ball.vy = -50
-        music.playSoundEffect(music.createSoundEffect(WaveShape.Sine, 5000, 0, 255, 0, 500, SoundExpressionEffect.None, InterpolationCurve.Linear), SoundExpressionPlayMode.UntilDone)
+        music.playSoundEffect(music.createSoundEffect(
+        WaveShape.Square,
+        1000 + randint(-720, 720),
+        0,
+        1024,
+        0,
+        500,
+        SoundExpressionEffect.None,
+        InterpolationCurve.Logarithmic
+        ), SoundExpressionPlayMode.UntilDone)
     }
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.dashCrystal, function (sprite, otherSprite) {
@@ -41,20 +53,19 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.dashCrystal, function (sprite, o
     sprite.sayText("I can now dash again without landing!", 500, true)
     canDash = true
 })
-controller.combos.attachCombo("AABBBABAABAB", function () {
-    for (let index = 0; index <= tiles.getTilesByType(assets.tile`deadly tile`).length; index++) {
-        tiles.setTileAt(tiles.getTileLocation(tiles.getTilesByType(assets.tile`deadly tile`)[index].column, tiles.getTilesByType(assets.tile`deadly tile`)[index].row), assets.tile`fine cell`)
+controller.combos.attachCombo("BABA", function () {
+    while (index2 <= tiles.getTilesByType(assets.tile`deadly tile`).length + 1) {
+        index2 += 1
+        tiles.setTileAt(tiles.getTileLocation(tiles.getTilesByType(assets.tile`deadly tile`)[index2].column, tiles.getTilesByType(assets.tile`deadly tile`)[index2].row), assets.tile`fine cell`)
     }
 })
 function ded () {
     player_ball.destroy(effects.fire, 1000)
 }
-sprites.onDestroyed(SpriteKind.Player, function (sprite) {
-    game.over(false, effects.melt)
-})
+let index2 = 0
 let canDash = false
 let player_ball: Sprite = null
-controller.combos.setTimeout(50)
+controller.combos.setTimeout(1000)
 controller.combos.setTriggerType(TriggerType.Continuous)
 scene.setBackgroundColor(15)
 tiles.setCurrentTilemap(tilemap`level0`)
