@@ -3,7 +3,6 @@ namespace SpriteKind {
 }
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!(player_ball.isHittingTile(CollisionDirection.Bottom)) && canDash) {
-        dashy = player_ball.y
         canDash = false
         music.playSoundEffect(music.createSoundEffect(
         WaveShape.Noise,
@@ -17,7 +16,6 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         ), SoundExpressionPlayMode.InBackground)
         scene.cameraShake(2, 100)
         for (let index = 0; index < 32; index++) {
-            player_ball.y = dashy
             player_ball.x += 4
             pause(1)
         }
@@ -52,14 +50,20 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.dashCrystal, function (sprite, otherSprite) {
     otherSprite.destroy(effects.ashes, 500)
-    sprite.sayText("I can now dash again without landing!", 2000, true)
+    sprite.sayText("I can now dash again without landing!", 500, true)
     canDash = true
+})
+controller.combos.attachCombo("BABA", function () {
+    while (index2 <= tiles.getTilesByType(assets.tile`deadly tile`).length + 1) {
+        index2 = 1
+        tiles.setTileAt(tiles.getTileLocation(tiles.getTilesByType(assets.tile`deadly tile`)[index2].column, tiles.getTilesByType(assets.tile`deadly tile`)[index2].row), assets.tile`fine cell`)
+        index2 += 1
+    }
 })
 function ded () {
     player_ball.destroy(effects.fire, 1000)
 }
-let music_picker = 0
-let dashy = 0
+let index2 = 0
 let canDash = false
 let player_ball: Sprite = null
 controller.combos.setTimeout(1000)
@@ -74,14 +78,11 @@ player_ball.fy = 15
 player_ball.ax = 20
 player_ball.ay = 75
 canDash = true
-let dashCryst = sprites.create(assets.image`dashCrystStatic`, SpriteKind.dashCrystal)
 game.onUpdate(function () {
     if (controller.right.isPressed()) {
         player_ball.vx = 100
-        music.footstep.play()
     } else if (controller.left.isPressed()) {
         player_ball.vx = -100
-        music.footstep.play()
     } else {
         player_ball.vx = 0
     }
@@ -100,15 +101,8 @@ game.onUpdate(function () {
     }
 })
 forever(function () {
-    music_picker = randint(0, 3)
-    music.setTempo(randint(1, 52) * 10)
-    if (music_picker == 0) {
-        music.playMelody("C D C F C G E D ", 120)
-    } else if (music_picker == 1) {
-        music.playMelody("G E G F B F G C5 ", 120)
-    } else if (music_picker == 2) {
-        music.playMelody("E A G F B A G F ", 120)
-    } else {
-        music.playMelody("A F C5 C A D B E ", 120)
-    }
+    music.playMelody("E B C5 A B G A F ", 120)
+    music.playMelody("C5 A B G A F G E ", 120)
+    music.playMelody("A F E F D G E F ", 120)
+    music.playMelody("E D G F B A C5 B ", 120)
 })
