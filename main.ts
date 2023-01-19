@@ -58,7 +58,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.dashCrystal, function (sprite, o
 function ded () {
     player_ball.destroy(effects.fire, 1000)
 }
-let switcher = 0
+let music_picker = 0
 let dashy = 0
 let canDash = false
 let player_ball: Sprite = null
@@ -101,13 +101,13 @@ game.onUpdate(function () {
     }
 })
 forever(function () {
-    switcher = randint(0, 3)
+    music_picker = randint(0, 3)
     music.setTempo(randint(1, 52) * 10)
-    if (switcher == 0) {
+    if (music_picker == 0) {
         music.playMelody("C D C F C G E D ", 120)
-    } else if (switcher == 1) {
+    } else if (music_picker == 1) {
         music.playMelody("G E G F B F G C5 ", 120)
-    } else if (switcher == 2) {
+    } else if (music_picker == 2) {
         music.playMelody("E A G F B A G F ", 120)
     } else {
         music.playMelody("A F C5 C A D B E ", 120)

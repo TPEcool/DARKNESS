@@ -6,7 +6,8 @@
         "pxt-button-combos": "github:jwunderl/pxt-button-combos#v0.0.24",
         "settings-blocks": "github:microsoft/pxt-settings-blocks#v1.0.0",
         "sevenseg": "*",
-        "edge-connector": "*"
+        "edge-connector": "*",
+        "multiplayer": "*"
     },
     "files": [
         "main.blocks",
@@ -23,7 +24,7 @@
         "test.ts"
     ],
     "targetVersions": {
-        "target": "1.11.37",
+        "target": "1.12.7",
         "targetId": "arcade"
     },
     "supportedTargets": [
