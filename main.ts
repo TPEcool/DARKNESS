@@ -66,7 +66,7 @@ function ded () {
 let index2 = 0
 let canDash = false
 let player_ball: Sprite = null
-controller.combos.setTimeout(1000)
+controller.combos.setTimeout(38413)
 controller.combos.setTriggerType(TriggerType.Continuous)
 scene.setBackgroundColor(15)
 tiles.setCurrentTilemap(tilemap`level0`)
@@ -78,6 +78,8 @@ player_ball.fy = 15
 player_ball.ax = 20
 player_ball.ay = 75
 canDash = true
+player_ball.sayText("Press A to jump!", 5000, true)
+player_ball.sayText("Press B midair to dash!", 1000, true)
 game.onUpdate(function () {
     if (controller.right.isPressed()) {
         player_ball.vx = 100
