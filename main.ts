@@ -53,19 +53,13 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.dashCrystal, function (sprite, o
     sprite.sayText("I can now dash again without landing!", 500, true)
     canDash = true
 })
-controller.combos.attachCombo("BABA", function () {
-    while (index2 <= tiles.getTilesByType(assets.tile`deadly tile`).length + 1) {
-        index2 = 1
-        tiles.setTileAt(tiles.getTileLocation(tiles.getTilesByType(assets.tile`deadly tile`)[index2].column, tiles.getTilesByType(assets.tile`deadly tile`)[index2].row), assets.tile`fine cell`)
-        index2 += 1
-    }
-})
 function ded () {
     player_ball.destroy(effects.fire, 1000)
 }
-let index2 = 0
 let canDash = false
 let player_ball: Sprite = null
+player_ball.sayText("Press A to jump!", 5000, true)
+player_ball.sayText("Press B midair to dash!", 1000, true)
 controller.combos.setTimeout(38413)
 controller.combos.setTriggerType(TriggerType.Continuous)
 scene.setBackgroundColor(15)
@@ -78,8 +72,7 @@ player_ball.fy = 15
 player_ball.ax = 20
 player_ball.ay = 75
 canDash = true
-player_ball.sayText("Press A to jump!", 5000, true)
-player_ball.sayText("Press B midair to dash!", 1000, true)
+pause(2000)
 game.onUpdate(function () {
     if (controller.right.isPressed()) {
         player_ball.vx = 100
