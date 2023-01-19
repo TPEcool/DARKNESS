@@ -56,7 +56,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.dashCrystal, function (sprite, o
     canDash = true
 })
 function ded () {
-    player_ball.destroy(effects.fire, 1000)
+    player_ball.destroy(effects.ashes, 1000)
 }
 let music_picker = 0
 let dashy = 0
