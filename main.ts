@@ -96,8 +96,5 @@ game.onUpdate(function () {
     }
 })
 forever(function () {
-    music.playMelody("E B C5 A B G A F ", 120)
-    music.playMelody("C5 A B G A F G E ", 120)
-    music.playMelody("A F E F D G E F ", 120)
-    music.playMelody("E D G F B A C5 B ", 120)
+    music.startSong(assets.song`music`, true)
 })
