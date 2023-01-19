@@ -75,7 +75,6 @@ player_ball.ax = 20
 player_ball.ay = 75
 canDash = true
 let dashCryst = sprites.create(assets.image`dashCrystStatic`, SpriteKind.dashCrystal)
-tiles.placeOnTile(dashCryst, tiles.getTileLocation(25, 13))
 game.onUpdate(function () {
     if (controller.right.isPressed()) {
         player_ball.vx = 100
